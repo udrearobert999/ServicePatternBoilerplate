@@ -1,0 +1,20 @@
+﻿using System.Linq.Expressions;
+using ServicePattern.Domain.Entities;
+
+namespace ServicePattern.Domain.Abstractions;
+
+public interface ISpecification<TEntity, TKey>
+    where TEntity : class, IEntity<TKey>
+    where TKey : struct
+
+{
+    public Expression<Func<TEntity, bool>>? Criteria { get; }
+    public List<Expression<Func<TEntity, object>>> Includes { get; }
+    public Expression<Func<TEntity, object>>? OrderBy { get; }
+    public Expression<Func<TEntity, object>>? OrderByDescending { get; }
+    public Expression<Func<TEntity, object>>? GroupBy { get; }
+
+    int Page { get; }
+    int PageSize { get; }
+    bool IsPagingEnabled { get; }
+}
