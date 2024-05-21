@@ -1,7 +1,8 @@
-﻿using ServicePattern.Application.Dtos.Result.Abstractions;
-using ServicePattern.Application.Dtos.Result.Errors.Factory;
+﻿using ServicePattern.Application.Results.Abstractions;
+using ServicePattern.Application.Results.Errors;
+using ServicePattern.Application.Results.Errors.Factory;
 
-namespace ServicePattern.Application.Dtos.Result.Generics;
+namespace ServicePattern.Application.Results.Generics;
 
 public record Result<TValue> : Result
 {
@@ -31,6 +32,14 @@ public record Result<TValue> : Result
 
     public new static Result<TValue> ValidationFailure(string message) =>
         new(ErrorFactory.ValidationFailure(message));
+
+    public static Result<TValue> ValidationFailure(IError error)
+    {
+        if (error is not ValidationFailureError)
+            throw new InvalidOperationException("Required validation failure error not provided!");
+
+        return FromError(error);
+    }
 
     public new static Result<TValue> FromError(IError error) =>
         new(error);

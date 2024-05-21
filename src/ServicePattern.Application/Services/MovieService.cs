@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using ServicePattern.Application.Dtos;
-using ServicePattern.Application.Dtos.Result;
+using ServicePattern.Application.Results;
+using ServicePattern.Application.Results.Generics;
 using ServicePattern.Application.Services.Abstractions;
 using ServicePattern.Application.Specifications;
-using ServicePattern.Application.Validators;
+using ServicePattern.Application.Validation;
 using ServicePattern.Domain.Abstractions;
 using ServicePattern.Domain.Entities;
-using ServicePattern.Application.Dtos.Result.Generics;
 
 namespace ServicePattern.Application.Services;
 
-internal sealed class MovieService : IMovieService
+internal class MovieService : IMovieService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -31,7 +31,7 @@ internal sealed class MovieService : IMovieService
         var validationResult = await _validationOrchestrator.ValidateAsync(request, cancellationToken);
         if (validationResult.IsFailure)
         {
-            return Result<CreateMovieResponseDto>.FromError(validationResult.Error);
+            return Result<CreateMovieResponseDto>.ValidationFailure(validationResult.Error);
         }
 
         var movie = _mapper.Map<Movie>(request);
@@ -44,23 +44,22 @@ internal sealed class MovieService : IMovieService
         return Result<CreateMovieResponseDto>.Success(responseDto);
     }
 
-    public async Task<Result<GetAllMoviesResponseDto>> GetAllPagedAsync(GetAllMoviesRequestDto request,
+    public async Task<Result<GetAllMoviesResponseDto>> GetAllPaginatedAsync(GetAllMoviesRequestDto request,
         CancellationToken cancellationToken = default)
     {
         var validationResult = await _validationOrchestrator.ValidateAsync(request, cancellationToken);
         if (validationResult.IsFailure)
         {
-            return Result<GetAllMoviesResponseDto>.FromError(validationResult.Error);
+            return Result<GetAllMoviesResponseDto>.ValidationFailure(validationResult.Error);
         }
 
-        var getMoviesWithGenresSpec = new GetAllMoviesWithGenresPagedSpec(request);
+        var getMoviesWithGenresSpec = new GetAllMoviesWithGenresPaginatedSpec(request);
         var movies = await _unitOfWork.Movies.GetBySpecAsync(getMoviesWithGenresSpec, cancellationToken);
 
-        var countMoviesSpec = new CountMoviesSpec(request);
+        var countMoviesSpec = new CountMoviesByGetAllRequestSpec(request);
         var moviesCount = await _unitOfWork.Movies.CountBySpecAsync(countMoviesSpec, cancellationToken);
 
         var responseDto = _mapper.Map<GetAllMoviesResponseDto>(movies);
-        _mapper.Map(request, responseDto);
         responseDto.Total = moviesCount;
 
         return Result<GetAllMoviesResponseDto>.Success(responseDto);
@@ -70,6 +69,10 @@ internal sealed class MovieService : IMovieService
         CancellationToken cancellationToken = default)
     {
         var movie = await _unitOfWork.Movies.GetByIdAsync(id, track: false, cancellationToken: cancellationToken);
+        if (movie == null)
+        {
+            return Result<GetMovieResponseDto>.NotFound();
+        }
 
         var responseDto = _mapper.Map<GetMovieResponseDto>(movie);
 
@@ -82,7 +85,7 @@ internal sealed class MovieService : IMovieService
         var validationResult = await _validationOrchestrator.ValidateAsync(request, cancellationToken);
         if (validationResult.IsFailure)
         {
-            return Result<UpdateMovieResponseDto>.FromError(validationResult.Error);
+            return Result<UpdateMovieResponseDto>.ValidationFailure(validationResult.Error);
         }
 
         var movie = await _unitOfWork.Movies.GetByIdAsync(id, track: true, cancellationToken: cancellationToken);

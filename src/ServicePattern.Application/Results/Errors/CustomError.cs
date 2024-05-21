@@ -1,7 +1,7 @@
-﻿using ServicePattern.Application.Dtos.Result.Abstractions;
-using ServicePattern.Application.Dtos.Result.Constants;
+﻿using ServicePattern.Application.Results.Abstractions;
+using ServicePattern.Application.Results.Constants;
 
-namespace ServicePattern.Application.Dtos.Result.Errors;
+namespace ServicePattern.Application.Results.Errors;
 
 internal record CustomError : Error
 {

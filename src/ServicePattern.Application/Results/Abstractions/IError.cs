@@ -1,4 +1,4 @@
-﻿namespace ServicePattern.Application.Dtos.Result.Abstractions;
+﻿namespace ServicePattern.Application.Results.Abstractions;
 
 public interface IError
 {

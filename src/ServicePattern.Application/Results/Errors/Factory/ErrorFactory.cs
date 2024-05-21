@@ -1,13 +1,12 @@
-﻿using ServicePattern.Application.Dtos.Result.Abstractions.Errors.Factory;
-using ServicePattern.Application.Dtos.Result.Abstractions;
-using ServicePattern.Application.Dtos.Result.Constants;
+﻿using ServicePattern.Application.Results.Abstractions;
+using ServicePattern.Application.Results.Abstractions.Errors.Factory;
+using ServicePattern.Application.Results.Constants;
 
-namespace ServicePattern.Application.Dtos.Result.Errors.Factory;
+namespace ServicePattern.Application.Results.Errors.Factory;
 
 public class ErrorFactory : IErrorFactory
 {
     public static IError NotFound(string message = nameof(ErrorCodes.NotFound)) => new NotFoundError(message);
-
 
     public static IError ValidationFailure(string message = nameof(ErrorCodes.ValidationFailure)) =>
         new ValidationFailureError(message);

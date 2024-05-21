@@ -1,6 +1,6 @@
-﻿using ServicePattern.Application.Dtos.Result;
+﻿using ServicePattern.Application.Results;
 
-namespace ServicePattern.Application.Validators;
+namespace ServicePattern.Application.Validation;
 
 internal interface IValidationOrchestrator
 {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace ServicePattern.Presentation.Config;
 
-internal sealed class SpinalCaseRouteNameTransformer : IOutboundParameterTransformer
+internal class SpinalCaseRouteNameTransformer : IOutboundParameterTransformer
 {
     public string? TransformOutbound(object? value)
     {

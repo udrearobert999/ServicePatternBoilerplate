@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using ServicePattern.Application.Dtos;
 
-namespace ServicePattern.Application.Validators;
+namespace ServicePattern.Application.Validation.Validators;
 
-public class PagedRequestDtoValidator: AbstractValidator<PagedRequestDto>
+public class PaginatedRequestDtoValidator : AbstractValidator<PaginatedRequestDto>
 {
-    public PagedRequestDtoValidator()
+    public PaginatedRequestDtoValidator()
     {
         RuleFor(x => x.PageSize)
             .LessThanOrEqualTo(25)

@@ -1,12 +1,13 @@
-﻿using ServicePattern.Application.Dtos.Result.Abstractions;
-using ServicePattern.Application.Dtos.Result.Constants;
-using ServicePattern.Application.Dtos.Result.Errors.Factory;
+﻿using ServicePattern.Application.Results.Abstractions;
+using ServicePattern.Application.Results.Constants;
+using ServicePattern.Application.Results.Errors;
+using ServicePattern.Application.Results.Errors.Factory;
 
-namespace ServicePattern.Application.Dtos.Result;
+namespace ServicePattern.Application.Results;
 
 public record Result
 {
-    public IError? Error { get; }
+    public IError Error { get; } = new NullError();
     public bool IsSuccess => !HasError();
     public bool IsFailure => HasError();
 
@@ -19,25 +20,26 @@ public record Result
         Error = error;
     }
 
-    protected bool HasError()
-    {
-        return Error is not null;
-    }
-
     public static Result Success() => new();
     public static Result NotFound() => new(ErrorFactory.NotFound());
     public static Result NotFound(string message) => new(ErrorFactory.NotFound(message));
     public static Result ValidationFailure() => new(ErrorFactory.ValidationFailure());
     public static Result ValidationFailure(string message) => new(ErrorFactory.ValidationFailure(message));
+
     public static Result FromError(IError error) => new(error);
 
-    public bool IsValidationFailureResult()
+    public bool HasError()
     {
-        return HasError() && Error!.Code == ErrorCodes.ValidationFailure;
+        return Error is not NullError;
     }
 
-    public bool IsNotFoundResult()
+    public bool IsValidationFailure()
     {
-        return HasError() && Error!.Code == ErrorCodes.NotFound;
+        return HasError() && Error.Code == ErrorCodes.ValidationFailure;
+    }
+
+    public bool IsNotFound()
+    {
+        return HasError() && Error.Code == ErrorCodes.NotFound;
     }
 }

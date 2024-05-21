@@ -3,13 +3,13 @@ using ServicePattern.Application.Dtos;
 using ServicePattern.Application.Specifications;
 using ServicePattern.Domain.Abstractions;
 
-namespace ServicePattern.Application.Validators;
+namespace ServicePattern.Application.Validation.Validators;
 
-public sealed class CreateMovieRequestDtoValidator : AbstractValidator<CreateMovieRequestDto>
+public class UpdateMovieRequestDtoValidator : AbstractValidator<UpdateMovieRequestDto>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateMovieRequestDtoValidator(IUnitOfWork unitOfWork)
+    public UpdateMovieRequestDtoValidator(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
 

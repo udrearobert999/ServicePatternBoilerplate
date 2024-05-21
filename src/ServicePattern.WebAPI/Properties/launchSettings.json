@@ -19,10 +19,12 @@
       },
       "applicationUrl": "https://localhost:443;http://localhost:80"
     },
-    "Docker": {
+    "Container (Dockerfile)": {
       "commandName": "Docker",
-      "launchBrowser": false,
+      "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "httpPort": 80,
+      "sslPort": 443,
       "publishAllPorts": true,
       "useSSL": true
     }

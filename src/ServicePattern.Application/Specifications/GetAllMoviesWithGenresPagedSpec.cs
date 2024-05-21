@@ -4,9 +4,9 @@ using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Specifications;
 
-internal sealed class GetAllMoviesWithGenresPagedSpec : Specification<Movie, Guid>
+internal sealed class GetAllMoviesWithGenresPaginatedSpec : Specification<Movie, Guid>
 {
-    public GetAllMoviesWithGenresPagedSpec(GetAllMoviesRequestDto request) :
+    public GetAllMoviesWithGenresPaginatedSpec(GetAllMoviesRequestDto request) :
         base(m => request.Title == null || m.Title.Contains(request.Title))
     {
         AddInclude(x => x.Genres);

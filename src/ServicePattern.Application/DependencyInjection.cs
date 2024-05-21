@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using ServicePattern.Application.Validators;
+using ServicePattern.Application.Validation;
 
 namespace ServicePattern.Application;
 

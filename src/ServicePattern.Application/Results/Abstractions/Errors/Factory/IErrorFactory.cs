@@ -1,4 +1,4 @@
-﻿namespace ServicePattern.Application.Dtos.Result.Abstractions.Errors.Factory;
+﻿namespace ServicePattern.Application.Results.Abstractions.Errors.Factory;
 
 public interface IErrorFactory
 {

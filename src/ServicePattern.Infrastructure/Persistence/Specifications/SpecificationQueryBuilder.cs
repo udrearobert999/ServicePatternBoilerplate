@@ -4,7 +4,7 @@ using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Infrastructure.Persistence.Specifications;
 
-internal sealed class SpecificationQueryBuilder<TEntity, TKey>
+internal class SpecificationQueryBuilder<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
     where TKey : struct
 {

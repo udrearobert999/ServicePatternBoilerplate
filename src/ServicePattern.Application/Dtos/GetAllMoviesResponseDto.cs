@@ -1,5 +1,5 @@
 ﻿namespace ServicePattern.Application.Dtos;
 
-public class GetAllMoviesResponseDto : PagedResponseDto<MovieDto>
+public class GetAllMoviesResponseDto : PaginatedListResponseDto<MovieDto>
 {
 }

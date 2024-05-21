@@ -5,7 +5,7 @@ using ServicePattern.Infrastructure.Persistence.Repositories;
 
 namespace ServicePattern.Infrastructure.Persistence;
 
-internal sealed class UnitOfWork : IUnitOfWork
+internal class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext _dbContext;
     public IRepository<Movie, Guid> Movies { get; set; }

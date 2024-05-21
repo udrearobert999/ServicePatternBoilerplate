@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.OutputCaching;
 using ServicePattern.Application.Dtos;
 using ServicePattern.Application.Services.Abstractions;
 using ServicePattern.Presentation.Constants;
-using ServicePattern.Presentation.Helpers;
 
 namespace ServicePattern.Presentation.Controllers;
 
@@ -21,7 +20,7 @@ public class MoviesController : BaseController
 
     [HttpPost]
     [ProducesResponseType(typeof(CreateMovieResponseDto), StatusCodes.Status201Created)]
-    // [ProducesResponseType(typeof(ValidationFailureResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] CreateMovieRequestDto request,
         CancellationToken cancellationToken)
     {
@@ -43,7 +42,7 @@ public class MoviesController : BaseController
     public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesRequestDto request,
         CancellationToken cancellationToken)
     {
-        var result = await _movieService.GetAllPagedAsync(request, cancellationToken);
+        var result = await _movieService.GetAllPaginatedAsync(request, cancellationToken);
 
         if (result.IsFailure)
             return HandleFailure(result);
@@ -65,7 +64,7 @@ public class MoviesController : BaseController
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(UpdateMovieResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    // [ProducesResponseType(typeof(ValidationFailureResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Update([FromRoute] Guid id,
         [FromBody] UpdateMovieRequestDto request,
         CancellationToken cancellationToken)

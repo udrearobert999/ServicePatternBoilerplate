@@ -1,4 +1,6 @@
-﻿namespace ServicePattern.Presentation;
+﻿using System.Reflection;
+
+namespace ServicePattern.Presentation;
 
 public static class AssemblyReference
 {

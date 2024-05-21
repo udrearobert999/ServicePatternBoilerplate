@@ -4,7 +4,7 @@ using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Profiles;
 
-internal sealed class GenreProfile : Profile
+internal class GenreProfile : Profile
 {
     public GenreProfile()
     {

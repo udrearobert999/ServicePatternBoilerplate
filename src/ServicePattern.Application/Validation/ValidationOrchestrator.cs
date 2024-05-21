@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using ServicePattern.Application.Dtos.Result;
-using ServicePattern.Application.Dtos.Result.Abstractions;
-using ServicePattern.Application.Dtos.Result.Errors.Factory;
+using ServicePattern.Application.Results;
+using ServicePattern.Application.Results.Abstractions;
+using ServicePattern.Application.Results.Errors.Factory;
 
-namespace ServicePattern.Application.Validators;
+namespace ServicePattern.Application.Validation;
 
-internal sealed class ValidationOrchestrator : IValidationOrchestrator
+internal class ValidationOrchestrator : IValidationOrchestrator
 {
     private readonly IServiceProvider _serviceProvider;
 

@@ -4,7 +4,7 @@ using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Profiles;
 
-internal sealed class MovieProfile : Profile
+internal class MovieProfile : Profile
 {
     public MovieProfile()
     {
