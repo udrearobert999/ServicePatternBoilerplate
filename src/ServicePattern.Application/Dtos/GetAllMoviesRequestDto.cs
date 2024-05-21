@@ -2,6 +2,6 @@
 {
     public class GetAllMoviesRequestDto : PaginatedRequestDto
     {
-        public required string? Title { get; init; }
+        public string? Title { get; init; }
     }
 }
