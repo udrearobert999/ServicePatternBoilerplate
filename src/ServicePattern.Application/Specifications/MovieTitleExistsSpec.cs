@@ -8,5 +8,6 @@ internal sealed class MovieTitleExistsSpec : Specification<Movie, Guid>
     public MovieTitleExistsSpec(string title) :
         base(x => x.Title == title)
     {
+        DisableTracking();
     }
 }

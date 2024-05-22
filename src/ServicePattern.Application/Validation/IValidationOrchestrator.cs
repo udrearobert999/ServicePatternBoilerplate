@@ -1,4 +1,4 @@
-﻿using ServicePattern.Application.Results;
+﻿using ServicePattern.Domain.Results;
 
 namespace ServicePattern.Application.Validation;
 

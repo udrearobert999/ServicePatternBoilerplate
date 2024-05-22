@@ -1,4 +1,4 @@
-﻿using ServicePattern.Application.Dtos;
+﻿using ServicePattern.Application.Dtos.Movies.Options;
 using ServicePattern.Domain.Abstractions;
 using ServicePattern.Domain.Entities;
 
@@ -6,8 +6,9 @@ namespace ServicePattern.Application.Specifications;
 
 internal sealed class CountMoviesByGetAllRequestSpec : Specification<Movie, Guid>
 {
-    public CountMoviesByGetAllRequestSpec(GetAllMoviesRequestDto request) :
-        base(m => request.Title == null || m.Title.Contains(request.Title))
+    public CountMoviesByGetAllRequestSpec(GetAllMoviesOptionsDto options) :
+        base(m => options.Title == null || m.Title.Contains(options.Title))
     {
+        DisableTracking();
     }
 }

@@ -19,8 +19,12 @@ internal class ReadOnlyRepository<TEntity, TKey> : IReadOnlyRepository<TEntity, 
         _dbSet = _dbContext.Set<TEntity>();
     }
 
-    public async Task<TEntity?> GetByIdAsync(TKey key, bool track = true,
-        CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken)
+    {
+        return await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
+    }
+
+    public async Task<TEntity?> GetByIdAsync(TKey key, CancellationToken cancellationToken, bool track = true)
     {
         if (track)
             return await _dbSet.FindAsync(key);
@@ -29,40 +33,32 @@ internal class ReadOnlyRepository<TEntity, TKey> : IReadOnlyRepository<TEntity, 
             .FirstOrDefaultAsync(e => e.Id.Equals(key), cancellationToken);
     }
 
-    public async Task<IEnumerable<TEntity>> GetAll(bool track = true, CancellationToken cancellationToken = default)
-    {
-        if (track)
-            return await _dbSet.ToListAsync(cancellationToken);
-
-        return await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
-    }
-
     public async Task<IEnumerable<TEntity>> GetBySpecAsync(ISpecification<TEntity, TKey> spec,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         return await ApplySpecification(spec).ToListAsync(cancellationToken);
     }
 
     public Task<TEntity?> GetSingleOrDefaultBySpecAsync(ISpecification<TEntity, TKey> spec,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         return ApplySpecification(spec).SingleOrDefaultAsync(cancellationToken);
     }
 
     public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         return _dbSet.AsNoTracking().AnyAsync(expression, cancellationToken);
     }
 
     public Task<bool> ExistsBySpecAsync(ISpecification<TEntity, TKey> spec,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         return ApplySpecification(spec).AnyAsync(cancellationToken);
     }
 
     public Task<int> CountAsync(Expression<Func<TEntity, bool>>? expression,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         if (expression is null)
             return _dbSet.AsNoTracking().CountAsync(cancellationToken);
@@ -70,7 +66,7 @@ internal class ReadOnlyRepository<TEntity, TKey> : IReadOnlyRepository<TEntity, 
         return _dbSet.AsNoTracking().CountAsync(expression, cancellationToken);
     }
 
-    public Task<int> CountBySpecAsync(ISpecification<TEntity, TKey> spec, CancellationToken cancellationToken = default)
+    public Task<int> CountBySpecAsync(ISpecification<TEntity, TKey> spec, CancellationToken cancellationToken)
     {
         return ApplySpecification(spec).CountAsync(cancellationToken);
     }

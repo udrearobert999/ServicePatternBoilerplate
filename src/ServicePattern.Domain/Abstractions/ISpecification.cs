@@ -14,7 +14,9 @@ public interface ISpecification<TEntity, TKey>
     public Expression<Func<TEntity, object>>? OrderByDescending { get; }
     public Expression<Func<TEntity, object>>? GroupBy { get; }
 
-    int Page { get; }
-    int PageSize { get; }
-    bool IsPagingEnabled { get; }
+    public int? Page { get; }
+    public int? PageSize { get; }
+    public bool IsPagingEnabled { get; }
+    public bool SplitQuery { get; }
+    public bool Track { get; }
 }

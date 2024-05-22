@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using ServicePattern.Domain.Constants;
 using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Domain.Abstractions;
@@ -14,9 +15,11 @@ public abstract class Specification<TEntity, TKey> : ISpecification<TEntity, TKe
     public Expression<Func<TEntity, object>>? OrderByDescending { get; private set; }
     public Expression<Func<TEntity, object>>? GroupBy { get; private set; }
 
-    public int Page { get; private set; }
-    public int PageSize { get; private set; }
+    public int? Page { get; private set; }
+    public int? PageSize { get; private set; }
     public bool IsPagingEnabled { get; private set; }
+    public bool SplitQuery { get; private set; }
+    public bool Track { get; private set; } = true;
 
     protected Specification()
     {
@@ -32,25 +35,59 @@ public abstract class Specification<TEntity, TKey> : ISpecification<TEntity, TKe
         Includes.Add(includeExpression);
     }
 
-    protected virtual void ApplyPaging(int page, int pageSize)
+    protected virtual void ApplyPaging(int? page, int? pageSize)
     {
         Page = page;
         PageSize = pageSize;
-        IsPagingEnabled = true;
+
+        if (page is not null && pageSize is not null)
+            IsPagingEnabled = true;
     }
 
-    protected virtual void ApplyOrderBy(Expression<Func<TEntity, object>> orderByExpression)
+    protected virtual void ApplyOrderBy(Expression<Func<TEntity, object>> orderByExpression, string direction)
     {
-        OrderBy = orderByExpression;
+        SetOrderByExpression(orderByExpression, direction);
     }
 
-    protected virtual void ApplyOrderByDescending(Expression<Func<TEntity, object>> orderByDescendingExpression)
+    protected virtual void ApplyOrderBy(string? propertyName, string? direction)
     {
-        OrderByDescending = orderByDescendingExpression;
+        if (propertyName is null || direction is null)
+            return;
+
+        var expression = CreateOrderByExpressionFromPropertyName(propertyName);
+
+        SetOrderByExpression(expression, direction);
+    }
+
+    private Expression<Func<TEntity, object>> CreateOrderByExpressionFromPropertyName(string propertyName)
+    {
+        var parameter = Expression.Parameter(typeof(TEntity), "x");
+        var property = Expression.Property(parameter, propertyName);
+        var expression = Expression.Lambda<Func<TEntity, object>>(property, parameter);
+
+        return expression;
+    }
+
+    private void SetOrderByExpression(Expression<Func<TEntity, object>> orderByExpression, string direction)
+    {
+        if (direction == OrderDirectionConstants.Ascending)
+            OrderBy = orderByExpression;
+        else
+            OrderByDescending = orderByExpression;
     }
 
     protected virtual void ApplyGroupBy(Expression<Func<TEntity, object>> groupByExpression)
     {
         GroupBy = groupByExpression;
+    }
+
+    public void EnableSplitQuery()
+    {
+        SplitQuery = true;
+    }
+
+    public void DisableTracking()
+    {
+        Track = false;
     }
 }

@@ -12,21 +12,21 @@ internal class Repository<TEntity, TKey> : ReadOnlyRepository<TEntity, TKey>, IR
     {
     }
 
-    public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken)
     {
         var createdEntity = await _dbSet.AddAsync(entity, cancellationToken);
 
         return createdEntity.Entity;
     }
 
-    public Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
         var updatedEntity = _dbSet.Update(entity);
 
         return Task.FromResult(updatedEntity.Entity);
     }
 
-    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
     {
         _dbSet.Remove(entity);
 

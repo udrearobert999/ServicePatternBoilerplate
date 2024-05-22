@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using ServicePattern.Application.Dtos;
+using ServicePattern.Application.Dtos.Movies;
+using ServicePattern.Application.Dtos.Movies.Requests;
+using ServicePattern.Application.Dtos.Movies.Responses;
 using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Profiles;

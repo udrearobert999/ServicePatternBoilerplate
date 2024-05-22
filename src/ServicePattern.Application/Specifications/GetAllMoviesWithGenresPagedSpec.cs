@@ -1,15 +1,18 @@
-﻿using ServicePattern.Application.Dtos;
+﻿using ServicePattern.Application.Dtos.Movies.Options;
 using ServicePattern.Domain.Abstractions;
+using ServicePattern.Domain.Constants;
 using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Specifications;
 
 internal sealed class GetAllMoviesWithGenresPaginatedSpec : Specification<Movie, Guid>
 {
-    public GetAllMoviesWithGenresPaginatedSpec(GetAllMoviesRequestDto request) :
-        base(m => request.Title == null || m.Title.Contains(request.Title))
+    public GetAllMoviesWithGenresPaginatedSpec(GetAllMoviesOptionsDto options) :
+        base(m => options.Title == null || m.Title.Contains(options.Title))
     {
         AddInclude(x => x.Genres);
-        ApplyPaging(request.Page, request.PageSize);
+        ApplyPaging(options.Page, options.PageSize);
+        ApplyOrderBy(options.OrderBy, options.OrderDirection);
+        DisableTracking();
     }
 }

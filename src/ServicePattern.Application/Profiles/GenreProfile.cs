@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ServicePattern.Application.Dtos;
+using ServicePattern.Application.Dtos.Genres;
 using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Profiles;

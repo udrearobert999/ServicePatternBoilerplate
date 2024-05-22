@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using ServicePattern.Application.Dtos;
+using ServicePattern.Application.Dtos.Movies.Options;
+using ServicePattern.Application.Dtos.Movies.Requests;
+using ServicePattern.Application.Dtos.Movies.Responses;
 using ServicePattern.Application.Services.Abstractions;
 using ServicePattern.Presentation.Constants;
 
@@ -39,10 +41,10 @@ public class MoviesController : BaseController
     [HttpGet]
     [OutputCache(PolicyName = CacheConstants.Policies.Movies)]
     [ProducesResponseType(typeof(GetAllMoviesResponseDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesRequestDto request,
+    public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesOptionsDto options,
         CancellationToken cancellationToken)
     {
-        var result = await _movieService.GetAllPaginatedAsync(request, cancellationToken);
+        var result = await _movieService.GetAllPaginatedAsync(options, cancellationToken);
 
         if (result.IsFailure)
             return HandleFailure(result);

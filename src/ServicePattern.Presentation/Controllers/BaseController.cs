@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ServicePattern.Application.Results;
-using ServicePattern.Application.Results.Abstractions;
+using ServicePattern.Domain.Results;
+using ServicePattern.Domain.Results.Abstractions;
 
 namespace ServicePattern.Presentation.Controllers;
 

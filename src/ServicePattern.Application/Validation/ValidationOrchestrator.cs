@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using ServicePattern.Application.Results;
-using ServicePattern.Application.Results.Abstractions;
-using ServicePattern.Application.Results.Errors.Factory;
+using ServicePattern.Domain.Results;
+using ServicePattern.Domain.Results.Abstractions;
+using ServicePattern.Domain.Results.Errors.Factory;
 
 namespace ServicePattern.Application.Validation;
 

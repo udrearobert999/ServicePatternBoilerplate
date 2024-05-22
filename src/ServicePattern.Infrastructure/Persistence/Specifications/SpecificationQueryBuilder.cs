@@ -13,6 +13,11 @@ internal class SpecificationQueryBuilder<TEntity, TKey>
     {
         var query = inputQuery;
 
+        if (!specification.Track)
+        {
+            query = query.AsNoTracking();
+        }
+
         if (specification.Criteria != null)
         {
             query = query.Where(specification.Criteria);
@@ -20,6 +25,11 @@ internal class SpecificationQueryBuilder<TEntity, TKey>
 
         query = specification.Includes.Aggregate(query,
             (current, include) => current.Include(include));
+
+        if (specification.SplitQuery)
+        {
+            query = query.AsSplitQuery();
+        }
 
         if (specification.OrderBy != null)
         {
@@ -37,12 +47,18 @@ internal class SpecificationQueryBuilder<TEntity, TKey>
 
         if (specification.IsPagingEnabled)
         {
+            if (specification.Page is null || specification.PageSize is null)
+                throw new InvalidOperationException("Paging enabled but has null values");
+
+            if (specification.Page < 1)
+                throw new InvalidOperationException("Page number must be greater than or equal 1!");
+
             var skip = (specification.Page - 1) * specification.PageSize;
             var take = specification.PageSize;
 
             query = query
-                .Skip(skip)
-                .Take(take);
+                .Skip((int) skip)
+                .Take((int) take);
         }
 
         return query;

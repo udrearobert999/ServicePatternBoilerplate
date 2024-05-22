@@ -7,8 +7,8 @@ public interface IReadOnlyRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
     where TKey : struct
 {
-    public Task<TEntity?> GetByIdAsync(TKey key, bool track, CancellationToken cancellationToken = default);
-    public Task<IEnumerable<TEntity>> GetAll(bool track, CancellationToken cancellationToken = default);
+    public Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default);
+    public Task<TEntity?> GetByIdAsync(TKey key,CancellationToken cancellationToken = default, bool track = true);
 
     public Task<IEnumerable<TEntity>> GetBySpecAsync(ISpecification<TEntity, TKey> spec,
         CancellationToken cancellationToken = default);
