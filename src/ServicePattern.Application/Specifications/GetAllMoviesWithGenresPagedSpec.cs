@@ -1,6 +1,5 @@
 ﻿using ServicePattern.Application.Dtos.Movies.Options;
 using ServicePattern.Domain.Abstractions;
-using ServicePattern.Domain.Constants;
 using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Application.Specifications;

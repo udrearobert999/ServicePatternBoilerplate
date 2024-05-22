@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.DependencyInjection;
-using ServicePattern.Application.Dtos;
 using ServicePattern.Application.Dtos.Movies.Options;
 using ServicePattern.Presentation.Config;
 using ServicePattern.Presentation.Constants;
@@ -26,7 +25,7 @@ public static class DependencyInjection
             x.AddPolicy(CacheConstants.Policies.Movies, c =>
                 c.Cache()
                     .Expire(TimeSpan.FromMinutes(1))
-                    .SetVaryByQueryByTypeProps<GetAllMoviesOptionsDto>()
+                    .SetVaryByQueryByTypeProperties<GetAllMoviesOptionsDto>()
                     .Tag(CacheConstants.Keys.Movies));
         });
 

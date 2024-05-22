@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-namespace ServicePattern.Presentation.Helpers;
+namespace ServicePattern.Application.Shared.Helpers;
 
-internal class ReflectionHelper
+public class ReflectionHelper
 {
     public static string[] GetProperties<T>()
     {

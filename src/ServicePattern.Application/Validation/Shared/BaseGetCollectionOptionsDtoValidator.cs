@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
 using ServicePattern.Domain.Constants;
-using ServicePattern.Domain.Entities;
-using System.Reflection;
-using AutoMapper.Internal;
 using ServicePattern.Application.Dtos.Shared;
+using ServicePattern.Application.Shared.Helpers;
 
 namespace ServicePattern.Application.Validation.Shared;
 
@@ -26,11 +24,11 @@ public class BaseGetCollectionOptionsDtoValidator<TDto, TEntity> : AbstractValid
                        string.Equals(d, OrderDirectionConstants.Descending, StringComparison.OrdinalIgnoreCase) ||
                        string.IsNullOrEmpty(d))
             .WithMessage(
-                $"Order direction must be either '{OrderDirectionConstants.Ascending}' or '{OrderDirectionConstants.Descending}'.");
+                $"Order direction must be either '{OrderDirectionConstants.Ascending}' or '{OrderDirectionConstants.Descending}'!");
 
         RuleFor(x => x.OrderBy)
             .Must(PropertyExistsOrNull)
-            .WithMessage("Order by property doesn't exists on the current entity!.");
+            .WithMessage("Order by property doesn't exists on the current entity!");
     }
 
     private bool PropertyExistsOrNull(string? propertyName)
@@ -38,10 +36,9 @@ public class BaseGetCollectionOptionsDtoValidator<TDto, TEntity> : AbstractValid
         if (string.IsNullOrEmpty(propertyName))
             return true;
 
-        var properties = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Select(prop => prop.Name)
-            .ToArray();
+        var properties = ReflectionHelper.GetProperties<TEntity>();
+        var propertyExists = properties.Contains(propertyName, StringComparer.OrdinalIgnoreCase);
 
-        return properties.Contains(propertyName, StringComparer.OrdinalIgnoreCase);
+        return propertyExists;
     }
 }

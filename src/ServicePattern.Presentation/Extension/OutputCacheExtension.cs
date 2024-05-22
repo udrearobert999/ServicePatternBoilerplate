@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.OutputCaching;
-using ServicePattern.Presentation.Helpers;
+using ServicePattern.Application.Shared.Helpers;
 
 namespace ServicePattern.Presentation.Extension;
 
 internal static class OutputCacheExtension
 {
-    public static OutputCachePolicyBuilder SetVaryByQueryByTypeProps<T>(this OutputCachePolicyBuilder builder)
+    public static OutputCachePolicyBuilder SetVaryByQueryByTypeProperties<T>(this OutputCachePolicyBuilder builder)
     {
         var jsonPropertiesOfType = ReflectionHelper.GetProperties<T>();
 
