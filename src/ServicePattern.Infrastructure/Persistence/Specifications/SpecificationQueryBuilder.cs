@@ -48,10 +48,10 @@ internal class SpecificationQueryBuilder<TEntity, TKey>
         if (specification.IsPagingEnabled)
         {
             if (specification.Page is null || specification.PageSize is null)
-                throw new InvalidOperationException("Paging enabled but has null values");
+                throw new ArgumentException("Paging enabled but has null values");
 
             if (specification.Page < 1)
-                throw new InvalidOperationException("Page number must be greater than or equal 1!");
+                throw new ArgumentException("Page number must be greater than or equal 1!");
 
             var skip = (specification.Page - 1) * specification.PageSize;
             var take = specification.PageSize;

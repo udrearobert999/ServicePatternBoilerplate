@@ -36,7 +36,7 @@ public record Result<TValue> : Result
     public static Result<TValue> ValidationFailure(IError error)
     {
         if (error is not ValidationFailureError)
-            throw new InvalidOperationException("Required validation failure error not provided!");
+            throw new ArgumentException($"Error is not of {typeof(ValidationFailureError)} type!");
 
         return FromError(error);
     }

@@ -7,7 +7,6 @@ using ServicePattern.WebAPI.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-configuration.AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
 configuration.AddEnvironmentVariables();
 
 builder.Services
@@ -18,7 +17,7 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Host.UseSerilog((context, config) => { config.ReadFrom.Configuration(context.Configuration); });
+builder.Host.UseSerilog((context, config) => { config.ReadFrom.Configuration(configuration); });
 
 var app = builder.Build();
 
@@ -32,10 +31,11 @@ app.UseHttpsRedirection();
 
 app.UseSerilogRequestLogging();
 app.UseGlobalExceptionHandler();
-app.UseCors();
-app.UseOutputCache();
 
+app.UseCors();
 app.UseRouting();
+
+app.UseOutputCache();
 
 app.UseAuthorization(); 
 
