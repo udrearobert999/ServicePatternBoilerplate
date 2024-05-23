@@ -42,6 +42,6 @@ public class BaseController : ControllerBase
             Title = "One or more validation errors occurred.",
             Detail = error.Message,
             Status = status,
-            Extensions = {{nameof(errors), errors}}
+            Extensions = { { nameof(errors), errors } }
         };
 }

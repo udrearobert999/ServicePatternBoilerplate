@@ -1,22 +1,23 @@
-﻿namespace ServicePattern.WebAPI.Middleware;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-public class ErrorDetails
+namespace ServicePattern.WebAPI.Middleware;
+
+public class CustomProblemDetails : ProblemDetails
 {
-    public int StatusCode { get; set; }
-    public string? Message { get; set; }
+    public new IDictionary<string, object> Extensions { get; set; } = new Dictionary<string, object>();
 
-    public override string ToString()
+    public bool ShouldSerializeExtensions()
     {
-        return JsonConvert.SerializeObject(this);
+        return Extensions.Count > 0;
     }
 }
 
 public class ExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger _logger;
+    private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
     public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
     {
@@ -35,20 +36,27 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = "application/json";
 
-            var messageTitle = "Something went wrong!";
+            var endpointLogTitle = "[UnknownEndpoint]";
+            var endpointName = context.GetEndpoint()?.DisplayName;
+            if (!string.IsNullOrEmpty(endpointName))
+                endpointLogTitle = $"[{endpointName}]";
 
-            var endPointName = context.GetEndpoint()?.DisplayName;
-            if (!string.IsNullOrEmpty(endPointName))
-                messageTitle = $"[{endPointName}]";
-
-            await context.Response.WriteAsync(new ErrorDetails
+            var problemDetails = new CustomProblemDetails
             {
-                StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error"
-            }.ToString());
+                Title = "Internal Server Error",
+                Status = context.Response.StatusCode,
+                Detail = "Something went wrong!"
+            };
 
-            _logger.Log(LogLevel.Error,
-                $"{messageTitle} : {(ex.InnerException is not null ? ex.InnerException.Message : ex.Message)}");
+            var jsonString = JsonConvert.SerializeObject(problemDetails, new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
+            await context.Response.WriteAsync(jsonString);
+
+            var logErrorMessage = ex.InnerException?.Message ?? ex.Message;
+            _logger.LogError("{EndpointLogTitle} : {LogErrorMessage}", endpointLogTitle, logErrorMessage);
         }
     }
 }
