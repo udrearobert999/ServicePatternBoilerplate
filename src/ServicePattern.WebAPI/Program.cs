@@ -3,7 +3,6 @@ using ServicePattern.Application;
 using ServicePattern.Infrastructure;
 using ServicePattern.WebAPI.Caching.Extensions;
 using ServicePattern.WebAPI.Endpoints.Extensions;
-using ServicePattern.WebAPI.Endpoints.Movies;
 using ServicePattern.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

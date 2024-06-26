@@ -1,7 +1,6 @@
-﻿namespace ServicePattern.WebAPI.Endpoints.Abstractions
+﻿namespace ServicePattern.WebAPI.Endpoints.Abstractions;
+
+public interface IEndpointsMapper
 {
-    public interface IEndpointsMapper
-    {
-        public void MapEndpoints(IEndpointRouteBuilder builder);
-    }
+    public void MapEndpoints(IEndpointRouteBuilder builder);
 }
