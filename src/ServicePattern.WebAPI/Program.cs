@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Serilog;
 using ServicePattern.Application;
 using ServicePattern.Infrastructure;
-using ServicePattern.Presentation.Config;
 using ServicePattern.WebAPI.Caching.Extensions;
+using ServicePattern.WebAPI.Endpoints.Extensions;
+using ServicePattern.WebAPI.Endpoints.Movies;
 using ServicePattern.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,19 +15,17 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(configuration);
 
-builder.Services
-    .AddControllers(options =>
-    {
-        options.Conventions.Add(new RouteTokenTransformerConvention(new SpinalCaseRouteNameTransformer()));
-    });
-
 builder.Services.AddOutputCache(options =>
 {
     options.ConfigureCustomPolicies();
 });
 
+builder.Services.AddEndpoints();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors();
 
 builder.Host.UseSerilog((_, config) => { config.ReadFrom.Configuration(configuration); });
 
@@ -49,8 +47,6 @@ app.UseRouting();
 
 app.UseOutputCache();
 
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseEndpoints();
 
 app.Run();
