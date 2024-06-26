@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Routing;
 
-namespace ServicePattern.Presentation.Config;
+namespace ServicePattern.WebAPI.Config;
 
 internal class SpinalCaseRouteNameTransformer : IOutboundParameterTransformer
 {

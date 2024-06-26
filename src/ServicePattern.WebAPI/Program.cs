@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Serilog;
 using ServicePattern.Application;
 using ServicePattern.Infrastructure;
-using ServicePattern.Presentation.Config;
 using ServicePattern.WebAPI.Caching.Extensions;
+using ServicePattern.WebAPI.Config;
 using ServicePattern.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

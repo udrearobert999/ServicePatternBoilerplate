@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using ServicePattern.Application.Dtos.Movies.Options;
 using ServicePattern.Application.Dtos.Movies.Requests;
@@ -7,7 +6,7 @@ using ServicePattern.Application.Dtos.Movies.Responses;
 using ServicePattern.Application.Services.Abstractions;
 using ServicePattern.WebAPI.Caching.Constants;
 
-namespace ServicePattern.Presentation.Controllers;
+namespace ServicePattern.WebAPI.Controllers;
 
 public class MoviesController : BaseController
 {

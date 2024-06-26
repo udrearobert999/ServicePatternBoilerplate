@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServicePattern.Domain.Results;
 using ServicePattern.Domain.Results.Abstractions;
 
-namespace ServicePattern.Presentation.Controllers;
+namespace ServicePattern.WebAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
