@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicePattern.Domain", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicePattern.Infrastructure", "src\ServicePattern.Infrastructure\ServicePattern.Infrastructure.csproj", "{AD0A7B52-78F2-4BD6-9615-C35A2DE75EEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicePattern.Presentation", "src\ServicePattern.Presentation\ServicePattern.Presentation.csproj", "{5A95A608-E8DB-4FF2-87AF-A02313C0D711}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicePattern.WebAPI", "src\ServicePattern.WebAPI\ServicePattern.WebAPI.csproj", "{B23BE9A6-7BBD-4DB3-8ACB-15A331692DAA}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{AD0A7B52-78F2-4BD6-9615-C35A2DE75EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD0A7B52-78F2-4BD6-9615-C35A2DE75EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD0A7B52-78F2-4BD6-9615-C35A2DE75EEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A95A608-E8DB-4FF2-87AF-A02313C0D711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A95A608-E8DB-4FF2-87AF-A02313C0D711}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A95A608-E8DB-4FF2-87AF-A02313C0D711}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A95A608-E8DB-4FF2-87AF-A02313C0D711}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B23BE9A6-7BBD-4DB3-8ACB-15A331692DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B23BE9A6-7BBD-4DB3-8ACB-15A331692DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B23BE9A6-7BBD-4DB3-8ACB-15A331692DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU

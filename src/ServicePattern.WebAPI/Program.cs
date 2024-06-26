@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Serilog;
 using ServicePattern.Application;
 using ServicePattern.Infrastructure;
-using ServicePattern.Presentation;
+using ServicePattern.Presentation.Config;
+using ServicePattern.WebAPI.Caching.Extensions;
 using ServicePattern.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,8 +13,18 @@ configuration.AddEnvironmentVariables();
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(configuration)
-    .AddPresentation();
+    .AddInfrastructure(configuration);
+
+builder.Services
+    .AddControllers(options =>
+    {
+        options.Conventions.Add(new RouteTokenTransformerConvention(new SpinalCaseRouteNameTransformer()));
+    });
+
+builder.Services.AddOutputCache(options =>
+{
+    options.ConfigureCustomPolicies();
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -37,7 +49,7 @@ app.UseRouting();
 
 app.UseOutputCache();
 
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.MapControllers();
 

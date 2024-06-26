@@ -5,7 +5,7 @@ using ServicePattern.Application.Dtos.Movies.Options;
 using ServicePattern.Application.Dtos.Movies.Requests;
 using ServicePattern.Application.Dtos.Movies.Responses;
 using ServicePattern.Application.Services.Abstractions;
-using ServicePattern.Presentation.Constants;
+using ServicePattern.WebAPI.Caching.Constants;
 
 namespace ServicePattern.Presentation.Controllers;
 

@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServicePattern.Infrastructure\ServicePattern.Infrastructure.csproj" />
-    <ProjectReference Include="..\ServicePattern.Presentation\ServicePattern.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

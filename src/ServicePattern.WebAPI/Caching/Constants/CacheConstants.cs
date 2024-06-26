@@ -1,4 +1,4 @@
-﻿namespace ServicePattern.Presentation.Constants;
+﻿namespace ServicePattern.WebAPI.Caching.Constants;
 
 internal static class CacheConstants
 {
