@@ -17,7 +17,7 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Host.UseSerilog((context, config) => { config.ReadFrom.Configuration(configuration); });
+builder.Host.UseSerilog((_, config) => { config.ReadFrom.Configuration(configuration); });
 
 var app = builder.Build();
 

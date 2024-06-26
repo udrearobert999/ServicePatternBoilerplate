@@ -1,4 +1,4 @@
-﻿namespace ServicePattern.Domain.Constants;
+﻿namespace ServicePattern.Domain.Abstractions.Constants;
 
 public static class OrderDirectionConstants
 {

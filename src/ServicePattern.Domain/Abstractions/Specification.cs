@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using ServicePattern.Domain.Constants;
+using ServicePattern.Domain.Abstractions.Constants;
 using ServicePattern.Domain.Entities;
 
 namespace ServicePattern.Domain.Abstractions;

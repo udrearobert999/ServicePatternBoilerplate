@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using ServicePattern.Domain.Constants;
 using ServicePattern.Application.Dtos.Shared;
 using ServicePattern.Application.Shared.Helpers;
+using ServicePattern.Domain.Abstractions.Constants;
 
 namespace ServicePattern.Application.Validation.Shared;
 
